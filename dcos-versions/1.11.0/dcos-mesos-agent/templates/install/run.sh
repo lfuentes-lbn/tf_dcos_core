@@ -5,7 +5,7 @@ systemctl is-active --quiet dcos-* && echo "DC/OS seems already installed on $HO
 
 # Check if data disk size is greater
 # than 1 Gib for create /var/lib/mesos with it
-size=$(parted /dev/sdc unit gib print | awk '/^D.*\/dev\/sdc/ {split($NF,size,"GiB"); printf "%s",size[1]}')
+size=$(parted /dev/sdc unit gib print | awk '/^D.*\/dev\/sdc/ {split($NF,size,"GiB"); printf "%s",size[1]}' | cut -d'.' -f1)
 if [ $size -gt 1 ]; then
     echo "optional data disk for mesos is more than 1GiB"
 
